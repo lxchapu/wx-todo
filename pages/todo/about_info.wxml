@@ -1,0 +1,100 @@
+<view class="container safe-padding">
+  <view class="cell-group">
+    <view class="cell">
+      <image class="left-icon" src="/images/calendar_cube.png"></image>
+      <view class="content">
+        <view class="left">
+          <text>日期</text>
+        </view>
+        <view class="right">
+          <switch></switch>
+        </view>
+      </view>
+    </view>
+    <view class="cell">
+      <image class="left-icon" src="/images/timer_cube.png"></image>
+      <view class="content">
+        <view class="left">
+          <text>时间</text>
+        </view>
+        <view class="right">
+          <switch></switch>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <image class="left-icon" src="/images/circle_cube.png"></image>
+      <view class="content">
+        <view class="left">
+          <text>重复</text>
+        </view>
+        <view class="right">
+          <text>永不</text>
+          <image class="icon more" src="/images/more.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <image class="left-icon" src="/images/location_cube.png"></image>
+      <view class="content">
+        <view class="left">
+          <text>位置</text>
+        </view>
+        <view class="right">
+          <switch></switch>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <image class="left-icon" src="/images/message_cube.png"></image>
+      <view class="content">
+        <view class="left">
+          <text>发信息</text>
+        </view>
+        <view class="right">
+          <switch disabled></switch>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="explain">如选择此项目，当您在与人聊天时，将显示提醒事项通知。(暂时无法使用该功能)</view>
+  <view class="cell-group">
+    <view class="cell">
+      <image class="left-icon" src="/images/flag_cube.png"></image>
+      <view class="content">
+        <view class="left">
+          <text>旗标</text>
+        </view>
+        <view class="right">
+          <switch></switch>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <view class="content">
+        <view class="left">
+          <text>优先级</text>
+        </view>
+        <view class="right">
+          <text>无</text>
+          <image class="icon more" src="/images/more.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <view class="content">
+        <textarea class="input" fixed auto-height placeholder="URL"></textarea>
+      </view>
+    </view>
+  </view>
+</view>

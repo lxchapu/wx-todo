@@ -1,0 +1,17 @@
+@import "./cell.wxss";
+/* 顶部搜索栏&编辑按钮 */
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--page-background-color);
+}
+/* 页面正文 */
+.container {
+  box-sizing: border-box;
+  padding-top: 30px;
+}

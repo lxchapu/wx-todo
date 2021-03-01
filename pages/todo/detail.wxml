@@ -1,0 +1,4 @@
+<!-- 正文 -->
+<view class="container">
+  <text class="h1">{{name}}</text>
+</view>

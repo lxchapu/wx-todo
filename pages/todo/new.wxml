@@ -1,0 +1,43 @@
+<view class="header safe-padding">
+  <text class="text-button">添加</text>
+</view>
+<view class="container safe-padding">
+  <view class="cell-group">
+    <view class="cell">
+      <view class="content">
+        <textarea class="input" fixed auto-height placeholder="标题"></textarea>
+      </view>
+    </view>
+    <view class="cell">
+      <view class="content">
+        <textarea class="input" fixed auto-height placeholder="备注"></textarea>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell" catchtap="handleSetMoreTap">
+      <view class="content">
+        <view class="left">
+          <text>详细信息</text>
+        </view>
+        <view class="right">
+          <image class="icon more" src="/images/more.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <view class="content">
+        <view class="left">
+          <text>列表</text>
+        </view>
+        <view class="right">
+          <view class="dot"></view>
+          <text>重要</text>
+          <image class="icon more" src="/images/more.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

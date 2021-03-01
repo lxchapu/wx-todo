@@ -1,0 +1,61 @@
+/* css变量 */
+page {
+  --blue-color: #3478f6;
+  --red-color: #eb4d3d;
+  --page-background-color: #f2f2f7;
+  --input-background-color: #e3e3e8;
+  --border-color: #c4c4c6;
+  --safe-page-padding: 0 30rpx;
+  --footer-height: 96rpx;
+  --common-border: 1rpx solid var(--border-color);
+}
+/* 页面统一边距 */
+.safe-padding {
+  padding: var(--safe-page-padding);
+}
+/* 页面主体 */
+.container {
+  background-color: var(--page-background-color);
+  min-height: 100vh;
+}
+/* 纯文字按钮 */
+.text-button {
+  height: 60rpx;
+  line-height: 60rpx;
+  cursor: pointer;
+  color: var(--blue-color);
+}
+/* 搜索框 */
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+.search-bar > .text-button {
+  margin-left: 20rpx;
+}
+.search-bar > .search {
+  flex-grow: 1;
+  height: 70rpx;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  background-color: var(--input-background-color);
+}
+.search-bar > .search.disabled {
+  opacity: .5;
+}
+.search-bar > .search .icon {
+  width: 40rpx;
+  height: 40rpx;
+  padding: 0 10rpx;
+  cursor: pointer;
+}
+.search-bar .search-input {
+  flex-grow: 1;
+  height: 100%;
+}
+/* h1 */
+.h1 {
+  font-size: 50rpx;
+  font-weight: bold;
+}
