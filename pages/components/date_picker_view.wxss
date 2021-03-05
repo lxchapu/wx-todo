@@ -1,0 +1,88 @@
+/* 嵌入的日期选择器 */
+.top-bar {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.top-bar .selected-date {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+.top-bar .selected-date.active {
+  color: var(--blue-color);
+}
+.top-bar .selected-date .icon {
+  padding: 0 4px;
+  width: 18px;
+  height: 18px;
+  transition: transform .5s;
+}
+.top-bar .selected-date.active .icon {
+  transform: rotate(90deg);
+}
+.top-bar .pre-next {
+  display: flex;
+  align-items: center;
+}
+.top-bar .pre-next .icon {
+  width: 22px;
+  height: 22px;
+}
+.top-bar .pre-next .icon:nth-child(2) {
+  padding-left: 15px;
+}
+.date-picker {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+.date-picker .week-label {
+  height: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #8a8a8d;
+  text-align: center;
+}
+.date-picker .date-label {
+  position: relative;
+  padding-top: 100%;
+  border-radius: 50%;
+  font-size: 18px;
+}
+.date-picker .date-label.current {
+  color: var(--blue-color);
+}
+.date-picker .date-label.selected {
+  font-weight: bold;
+  color: var(--blue-color);
+  background-color: rgba(52, 120, 246, .25);
+}
+.date-picker .date-label.current.selected {
+  color: #fff;
+  background-color: var(--blue-color);
+}
+.date-label .position {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* 年月选择器 */
+.year-month-picker {
+  height: 250px;
+}
+.year-month-picker .year-label {
+  padding-right: 10px;
+  line-height: 34px;
+  text-align: right;
+}
+.year-month-picker .month-label {
+  padding-left: 10px;
+  line-height: 34px;
+  text-align: left;
+}

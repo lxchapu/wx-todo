@@ -1,7 +1,21 @@
+/* 引入图标 */
+@import "./images/icon/iconfont.wxss";
+
 /* css变量 */
 page {
-  --blue-color: #3478f6;
   --red-color: #eb4d3d;
+  --orange-color: #f09a37;
+  --yellow-color: #f7ce45;
+  --green-color: #5dc466;
+  --light-blue-color: #68a8ec;
+  --blue-color: #3478f6;
+  --dark-blue-color: #5756ce;
+  --peach-color: #d8506b;
+  --purple-color: #b67ad5;
+  --brown-color: #998667;
+  --slate-grey-color: #5d666f;
+  --rosy-brown-color: #d1a8a0;
+  --grey-color: #8a8a8d;
   --page-background-color: #f2f2f7;
   --input-background-color: #e3e3e8;
   --border-color: #c4c4c6;
@@ -16,7 +30,6 @@ page {
 /* 页面主体 */
 .container {
   background-color: var(--page-background-color);
-  min-height: 100vh;
 }
 /* 纯文字按钮 */
 .text-button {
@@ -24,6 +37,10 @@ page {
   line-height: 60rpx;
   cursor: pointer;
   color: var(--blue-color);
+}
+.text-button.disabled {
+  pointer-events: none;
+  color: var(--grey-color);
 }
 /* 搜索框 */
 .search-bar {

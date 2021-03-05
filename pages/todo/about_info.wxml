@@ -1,16 +1,18 @@
 <view class="container safe-padding">
   <view class="cell-group">
-    <view class="cell">
+    <view class="cell" catchtap="handleShowSetDateTap">
       <image class="left-icon" src="/images/calendar_cube.png"></image>
       <view class="content">
         <view class="left">
           <text>日期</text>
+          <text class="date-text" style="{{dateText&&setDate?'':'display: none;'}}">{{dateText}}</text>
         </view>
         <view class="right">
-          <switch></switch>
+          <switch data-type="switch" model:checked="{{setDate}}" bindchange="handleSetDateSwitchChange"></switch>
         </view>
       </view>
     </view>
+    <date-picker-view style="{{setDate&&showDatePicker?'':'display: none;'}}"></date-picker-view>
     <view class="cell">
       <image class="left-icon" src="/images/timer_cube.png"></image>
       <view class="content">
@@ -18,12 +20,12 @@
           <text>时间</text>
         </view>
         <view class="right">
-          <switch></switch>
+          <switch model:checked="{{setTime}}"></switch>
         </view>
       </view>
     </view>
   </view>
-  <view class="cell-group">
+  <view class="cell-group" style="{{setDate||setTime?'':'display: none;'}}">
     <view class="cell">
       <image class="left-icon" src="/images/circle_cube.png"></image>
       <view class="content">
@@ -45,7 +47,7 @@
           <text>位置</text>
         </view>
         <view class="right">
-          <switch></switch>
+          <switch model:checked="{{setLocation}}"></switch>
         </view>
       </view>
     </view>
@@ -58,7 +60,7 @@
           <text>发信息</text>
         </view>
         <view class="right">
-          <switch disabled></switch>
+          <switch disabled model:checked="{{setMessage}}"></switch>
         </view>
       </view>
     </view>
@@ -72,7 +74,7 @@
           <text>旗标</text>
         </view>
         <view class="right">
-          <switch></switch>
+          <switch model:checked="{{setFlag}}"></switch>
         </view>
       </view>
     </view>

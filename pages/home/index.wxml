@@ -1,78 +1,91 @@
 <!-- 首页 -->
 <!-- 顶部搜索栏&编辑按钮 -->
-<view class="header safe-padding {{searchFocus?'focus':''}} {{scroll?'simple':''}}">
+<view class="header safe-padding {{searchFocus?'focus':''}}">
   <!-- 编辑按钮 -->
   <view style="{{searchFocus?'display:none;':''}}" class="setting">
     <text class="text-button {{editstatus?'over-button':''}}" bindtap="handleEditTap">{{editstatus?"完成":"编辑"}}</text>
   </view>
   <!-- 搜索栏 -->
-  <view style="{{scroll?'display:none;':''}}" class="search-bar">
+  <view class="search-bar">
     <view class="search {{editstatus?'disabled':''}}">
       <icon class="icon" type="search" size="40rpx" color="#838388"></icon>
       <input class="search-input" type="text" confirm-type="search" placeholder="搜索" value="{{searchText}}" disabled="{{editstatus}}" bindfocus="handleSearchFocus" bindblur="handleSearchBlur" bindinput="handleSearchInput"/>
-      <icon style="{{searchClearHide?'display:none;':''}}" class="icon" type="clear" size="40rpx" color="#8e8e92"
-      catchtap="handleSearchClearTap"></icon>
     </view>
     <text style="{{searchFocus?'':'display:none;'}}" class="text-button" catchtap="handleSearchCancelTap">取消</text>
   </view>
 </view>
-<!-- 页面内容 -->
+<!-- 正文内容 -->
 <view class="container safe-padding">
-  <!-- 提醒事项分类 -->
-  <block wx:if="{{editstatus}}">
-    <view class="todo-group-list">
-      <view wx:for="{{todoType}}" wx:key="index" class="group-list-item">
-        <radio color="#3478f6" checked="{{item.show}}" data-index="{{index}}" catchtap="handleShowTypeTap"></radio>
-        <image class="icon" src="{{item.icon}}"></image>
+  <!-- 编辑状态 -->
+  <view wx:if="{{editstatus}}" class="cell-group statistics">
+    <block wx:for="{{statistics}}" wx:key="index">
+      <view class="cell">
+        <radio class="option" checked="{{item.show}}" color="#3478f6" data-index="{{index}}" catchtap="handleShowTypeTap" disabled="{{index==4}}"></radio>
+        <view class="left-icon" style="background-color: var(--{{item.color}}-color);">
+          <view class="iconfont svg-{{item.icon}}"></view>
+        </view>
         <view class="content">
-          <text class="name">{{item.name}}</text>
+          <view class="left">
+            <text>{{item.name}}</text>
+          </view>
           <view class="right">
             <image class="icon move" src="/images/move.png"></image>
           </view>
         </view>
       </view>
-    </view>
-  </block>
-  <block wx:else>
-    <view class="todo-group-grid">
-      <block wx:for="{{todoType}}" wx:key="index">
-        <view wx:if="{{item.show}}" class="group-grid-item" data-index="{{index}}" catchtap="handleNavigatorTap">
-          <view class="left">
-            <image class="icon" src="{{item.icon}}"></image>
-            <text class="name">{{item.name}}</text>
+    </block>
+  </view>
+  <!-- 正常显示状态 -->
+  <view wx:else class="grid-group statistics">
+    <block wx:for="{{statistics}}" wx:key="index">
+      <view style="{{item.show?'':'display: none;'}}" class="grid">
+        <view class="content">
+          <view class="top">
+            <view class="left-icon" style="background-color: var(--{{item.color}}-color);">
+              <view class="iconfont svg-{{item.icon}}"></view>
+            </view>
+            <text>{{item.number}}</text>
           </view>
-          <text class="number">{{item.number}}</text>
+          <view class="bottom">
+            <text>{{item.name}}</text>
+          </view>
         </view>
-      </block>
-    </view>
-  </block>
+      </view>
+    </block>
+  </view>
+  <!-- 提醒事项列表 -->
   <text class="h1">我的列表</text>
-  <!-- 提醒事项分类列表 -->
-  <view class="todo-group-list">
-    <view wx:for="{{todoGroup}}" wx:key="index" class="group-list-item">
-      <image wx:if="{{editstatus}}" class="icon delete" src="/images/delete.png" data-index="{{index}}" catchtap="handleDeleteGroupTap"></image>
-      <image class="icon" src="{{item.icon}}"></image>
+  <view class="cell-group lists">
+    <view class="cell" wx:for="{{lists}}" wx:key="index">
+      <image style="{{editstatus?'':'display: none;'}}" class="option" src="/images/delete.png"></image>
+      <view class="left-icon" style="background-color: var(--{{item.color}}-color);">
+        <view class="iconfont svg-{{item.icon}}"></view>
+      </view>
       <view class="content">
-        <text class="name">{{item.name}}</text>
-        <view wx:if="{{editstatus}}" class="right left-border">
-          <image class="icon move" src="/images/move.png"></image>
+        <view class="left">
+          <text>{{item.name}}</text>
         </view>
-        <view wx:else class="right">
-          <text class="number">{{item.number}}</text>
-          <image class="icon show-more" src="/images/more.png"></image>
+        <view class="right {{editstatus?'left-border':''}}">
+          <text style="{{editstatus?'display: none;':''}}">{{item.number||0}}</text>
+          <image wx:if="{{editstatus}}" class="icon move" src="/images/move.png"></image>
+          <image wx:else class="icon more" src="/images/more.png"></image>
         </view>
       </view>
     </view>
   </view>
 </view>
 <!-- 底部按钮 -->
-<view class="footer safe-padding over">
-  <text wx:if="{{editstatus}}" class="text-button">添加群组</text>
+<view class="footer safe-padding {{lists.length?'border':''}}">
+  <navigator wx:if="{{editstatus}}" url="/pages/todo/new_todo">
+    <text class="text-button">添加群组</text>
+  </navigator>
   <view wx:else class="left">
     <image class="icon" src="/images/add.png"></image>
-    <navigator url="/pages/todo/new">
+    <navigator url="/pages/todo/new_todo">
       <text class="text-button">新提醒事项</text>
     </navigator>
   </view>
-  <text class="text-button">添加列表</text>
+  <navigator url="/pages/list/new_list">
+    <text class="text-button">添加列表</text>
+  </navigator>
 </view>

@@ -1,66 +1,36 @@
 // pages/todo/about_info.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    // 显示日期选择器
+    showDatePicker: false,
+    // 设置日期
+    setDate: false,
+    // 设置时间
+    setTime: false,
+    // 设置位置
+    setLocation: false,
+    // 设置信息
+    setMessage: false,
+    // 设置旗标
+    setFlag: false,
+    // 提醒事项详细信息
+    dateText: "今天",
+    // 选择的日期
+    date: null
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
+  handleSetDateSwitchChange(event) {
+    this.setData({
+      showDatePicker: event.detail.value
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+  handleShowSetDateTap(e) {
+    if (e.target.dataset.type != "switch") {
+      this.setData({
+        showDatePicker: !this.data.showDatePicker
+      })
+    }
   }
 })

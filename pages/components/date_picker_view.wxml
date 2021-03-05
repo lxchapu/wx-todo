@@ -1,0 +1,37 @@
+<!-- 嵌入的日期选择器 -->
+<view class="date-picker-view">
+  <!-- 顶部信息栏 -->
+  <view class="top-bar">
+    <view class="selected-date {{showYearMonthPicker?'active':''}}" catchtap="handleShowYearMonthPickerTap">
+      <text><text class="number">{{show.year}}</text> 年 <text class="number">{{show.month}}</text> 月 </text>
+      <image class="icon" src="/images/right_small.png"></image>
+    </view>
+    <view style="{{showYearMonthPicker?'display:none;':''}}" class="pre-next">
+      <image class="icon" src="/images/left.png" catchtap="handlePreMonthTap"></image>
+      <image class="icon" src="/images/right.png" catchtap="handleNextMonthTap"></image>
+    </view>
+  </view>
+  <!-- 日期选择器 -->
+  <view style="{{showYearMonthPicker?'display:none;':''}}" class="date-picker">
+    <view class="week-label" wx:for="{{weekLabels}}" wx:key="index">周{{item}}</view>
+    <block wx:for="{{dateList}}" wx:key="index">
+      <block wx:if="{{item}}">
+        <view class="date-label {{item==selected.day && show.month==selected.month && show.year==selected.year?'selected':''}} {{item==current.day && show.month==current.month && show.year==current.year?'current':''}}" data-index="{{index}}" catchtap="handleDateTap">
+          <view class="position"><text>{{item}}</text></view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="date-label hidden"></view>
+      </block>
+    </block>
+  </view>
+  <!-- 年月选择器 -->
+  <picker-view style="{{showYearMonthPicker?'':'display:none;'}}" class="year-month-picker" value="{{yearMonthPickerValue}}" bindchange="handleYearMonthPickerChange">
+    <picker-view-column>
+      <view class="year-label" wx:for="{{yearList}}" wx:key="index">{{item}} 年</view>
+    </picker-view-column>
+    <picker-view-column>
+      <view class="month-label" wx:for="{{monthList}}" wx:key="index">{{item}} 月</view>
+    </picker-view-column>
+  </picker-view>
+</view>

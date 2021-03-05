@@ -14,46 +14,56 @@ Page({
     searchText: "",
     // 编辑状态
     editstatus: false,
-    // 滚动页面
-    scroll: false,
-    todoType: [
+    // 统计
+    statistics: [
       {
-        icon: "/images/today.png",
         name: "今天",
+        icon: "today",
+        color: "blue",
         number: 0,
         show: true
       }, {
-        icon: "/images/plain.png",
         name: "计划",
+        icon: "plan",
+        color: "red",
         number: 0,
         show: true
       }, {
-        icon: "/images/all.png",
         name: "全部",
+        icon: "all",
+        color: "slate-grey",
         number: 0,
         show: true
       }, {
-        icon: "/images/flag.png",
         name: "旗标",
+        icon: "flag",
+        color: "orange",
         number: 0,
         show: true
+      }, {
+        name: "已分配给我",
+        icon: "mine",
+        color: "green",
+        number: 0,
+        show: false
       }
     ],
-    todoGroup: [
-      {
-        icon: "/images/important.png",
-        name: "重要",
-        number: 0
-      }, {
-        icon: "/images/default.png",
-        name: "默认",
-        number: 0
-      }, {
-        icon: "/images/temp.png",
-        name: "暂缓",
-        number: 0
-      }
-    ]
+    // 列表
+    lists: []
+  },
+  // 生命周期 页面显示
+  onShow() {
+    // 读取列表
+    wx.getStorage({
+      key: "lists"
+    }).then(res => {
+      var lists = res.data;
+      this.setData({
+        lists: lists
+      })
+    }).catch(err => {
+      console.log(err)
+    });
   },
   handleSearchFocus() {
     this.setData({
@@ -96,31 +106,15 @@ Page({
       editstatus: !this.data.editstatus
     })
   },
-  // 页面滚动
-  onPageScroll(event) {
-    const toupper = event.scrollTop > 10+43;
-    this.setData({
-      scroll: toupper
-    })
-    if (toupper) {
-      wx.setNavigationBarColor({
-        backgroundColor: "#ffffff",
-        frontColor: "#000000",
-      });
-    } else {
-      wx.setNavigationBarColor({
-        backgroundColor: "#f2f2f7",
-        frontColor: "#000000",
-      });
-    }
-  },
+  // 点击勾选统计
   handleShowTypeTap(event) {
     const index = event.target.dataset.index;
-    this.data.todoType[index].show = !this.data.todoType[index].show;
+    this.data.statistics[index].show = !this.data.statistics[index].show;
     this.setData({
-      todoType: this.data.todoType
+      statistics: this.data.statistics
     })
   },
+  // 点击删除列表
   handleDeleteGroupTap(event) {
     const index = event.target.dataset.index;
     wx.showModal({
@@ -129,9 +123,9 @@ Page({
       confirmColor: "#3478f6",
       success: res => {
         if (res.confirm) {
-          this.data.todoGroup.splice(index, 1);
+          this.data.lists.splice(index, 1);
           this.setData({
-            todoGroup: this.data.todoGroup
+            lists: this.data.lists
           })
         }
       }

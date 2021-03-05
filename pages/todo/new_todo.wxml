@@ -1,0 +1,43 @@
+<view class="container safe-padding">
+  <view class="header">
+    <text class="text-button {{title?'':'disabled'}}" catchtap="handleAddTap">添加</text>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <view class="content">
+        <textarea class="input" model:value="{{title}}" fixed auto-height placeholder="标题"></textarea>
+      </view>
+    </view>
+    <view class="cell">
+      <view class="content">
+        <textarea class="input" model:value="{{remark}}" fixed auto-height placeholder="备注"></textarea>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell" catchtap="handleSetMoreTap">
+      <view class="content">
+        <view class="left">
+          <text>详细信息</text>
+        </view>
+        <view class="right">
+          <image class="icon more" src="/images/more.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <view class="content">
+        <view class="left">
+          <text>列表</text>
+        </view>
+        <view class="right">
+          <view class="dot"></view>
+          <text>{{belongList.name}}</text>
+          <image class="icon more" src="/images/more.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

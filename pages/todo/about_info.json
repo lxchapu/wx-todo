@@ -1,4 +1,6 @@
 {
   "navigationBarTitleText": "详细信息",
-  "usingComponents": {}
+  "usingComponents": {
+    "date-picker-view": "/pages/components/date_picker_view"
+  }
 }

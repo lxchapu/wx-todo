@@ -1,0 +1,34 @@
+<!-- 新建一个列表 -->
+<view class="container">
+  <view class="header safe-padding">
+    <text class="text-button {{name?'':'disabled'}}" catchtap="handleConfirmTap">完成</text>
+  </view>
+  <!-- 图标展示区域 -->
+  <view class="preview">
+    <view class="position" style="background-color: var(--{{selectedColor}}-color); box-shadow: 0 0 18rpx var(--{{selectedColor}}-color);">
+      <view class="iconfont svg-{{selectedIcon}}"></view>
+    </view>
+  </view>
+  <!-- 输入列表名称 -->
+  <view class="input safe-padding">
+    <input class="input-name {{inputNameFocus?'focus':''}}" type="text" focus style="color: var(--{{selectedColor}}-color);" bindfocus="handleInputNameFocus"  bindblur="handleInputNameBlur" bindinput="handleInputNameInput" />
+  </view>
+  <view class="picker">
+    <scroll-view scroll-y="true">
+      <!-- 颜色选择列表 -->
+      <view class="color-picker safe-padding">
+        <view wx:for="{{colorList}}" wx:key="index" class="color-label {{selectedColor==item?'selected':''}}" data-value="{{item}}" catchtap="handleColorTap">
+          <view class="position" style="background-color: var(--{{item}}-color);"></view>
+        </view>
+      </view>
+      <!-- 图标选择列表 -->
+      <view class="icon-picker safe-padding">
+        <view wx:for="{{iconList}}" wx:key="index" class="icon-label {{selectedIcon==item?'selected':''}}" data-value="{{item}}" catchtap="handleIconTap">
+          <view class="position">
+            <view class="iconfont svg-{{item}}"></view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
