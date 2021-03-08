@@ -56,33 +56,79 @@
   <!-- 提醒事项列表 -->
   <text class="h1">我的列表</text>
   <view class="cell-group lists">
-    <view class="cell" wx:for="{{lists}}" wx:key="index">
-      <image style="{{editstatus?'':'display: none;'}}" class="option" src="/images/delete.png"></image>
-      <view class="left-icon" style="background-color: var(--{{item.color}}-color);">
-        <view class="iconfont svg-{{item.icon}}"></view>
-      </view>
-      <view class="content">
-        <view class="left">
-          <text>{{item.name}}</text>
+    <block wx:for="{{lists}}" wx:key="index">
+      <!-- 群组 -->
+      <block wx:if="{{item.role=='group'}}">
+        <view class="cell" data-index="{{index}}" catchtap="handleGroupTap">
+          <!-- 操作 -->
+          <image style="{{editstatus?'':'display: none;'}}" class="option" src="/images/delete.png" data-index="{{index}}" catchtap="handleDeleteGroupTap"></image>
+          <!-- 图标 -->
+          <image class="left-icon" src="/images/group.png"></image>
+          <!-- 描述 -->
+          <view class="content">
+            <view class="left">
+              <text>{{item.name}}</text>
+            </view>
+            <view class="right {{editstatus?'left-border':''}}">
+              <text style="{{editstatus||index==unfoldGroupIndex?'display: none;':''}}">{{item.number||0}}</text>
+              <image wx:if="{{editstatus}}" class="icon move" src="/images/move.png"></image>
+              <image wx:else class="icon more {{index==unfoldGroupIndex?'rotate':''}}" src="/images/right_small.png"></image>
+            </view>
+          </view>
         </view>
-        <view class="right {{editstatus?'left-border':''}}">
-          <text style="{{editstatus?'display: none;':''}}">{{item.number||0}}</text>
-          <image wx:if="{{editstatus}}" class="icon move" src="/images/move.png"></image>
-          <image wx:else class="icon more" src="/images/more.png"></image>
+        <!-- 子列表 -->
+        <view style="{{index==unfoldGroupIndex?'':'display: none;'}}" wx:for="{{item.children}}" wx:for-index="childIndex" wx:for-item="childItem" wx:key="childIndex" class="cell child-cell">
+          <!-- 操作 -->
+          <image style="{{editstatus?'':'display: none;'}}" class="option" src="/images/delete.png" data-index="{{index}}" data-group-index="{{childIndex}}" catchtap="handleDeleteListTap"></image>
+          <!-- 图标 -->
+          <view class="left-icon" style="background-color: var(--{{childItem.color}}-color);">
+            <view class="iconfont svg-{{childItem.icon}}"></view>
+          </view>
+          <!-- 描述 -->
+          <view class="content">
+            <view class="left">
+              <text>{{childItem.name}}</text>
+            </view>
+            <view class="right {{editstatus?'left-border':''}}">
+              <text style="{{editstatus?'display: none;':''}}">{{childItem.number||0}}</text>
+              <image wx:if="{{editstatus}}" class="icon move" src="/images/move.png"></image>
+              <image wx:else class="icon more" src="/images/more.png"></image>
+            </view>
+          </view>
+        </view>
+      </block>
+      <!-- 列表 -->
+      <view wx:else class="cell">
+        <!-- 操作 -->
+        <image style="{{editstatus?'':'display: none;'}}" class="option" src="/images/delete.png" data-index="{{index}}" catchtap="handleDeleteListTap"></image>
+        <!-- 图标 -->
+        <view class="left-icon" style="background-color: var(--{{item.color}}-color);">
+          <view class="iconfont svg-{{item.icon}}"></view>
+        </view>
+        <!-- 描述 -->
+        <view class="content">
+          <view class="left">
+            <text>{{item.name}}</text>
+          </view>
+          <view class="right {{editstatus?'left-border':''}}">
+            <text style="{{editstatus?'display: none;':''}}">{{item.number||0}}</text>
+            <image wx:if="{{editstatus}}" class="icon move" src="/images/move.png"></image>
+            <image wx:else class="icon more" src="/images/more.png"></image>
+          </view>
         </view>
       </view>
-    </view>
+    </block>
   </view>
 </view>
 <!-- 底部按钮 -->
 <view class="footer safe-padding {{lists.length?'border':''}}">
-  <navigator wx:if="{{editstatus}}" url="/pages/todo/new_todo">
+  <navigator wx:if="{{editstatus}}" url="/pages/list/new_group">
     <text class="text-button">添加群组</text>
   </navigator>
   <view wx:else class="left">
-    <image class="icon" src="/images/add.png"></image>
+    <image class="icon" src="/images/{{lists.length?'add':'add_disabled'}}.png"></image>
     <navigator url="/pages/todo/new_todo">
-      <text class="text-button">新提醒事项</text>
+      <text class="text-button {{lists.length?'':'disabled'}}">新提醒事项</text>
     </navigator>
   </view>
   <navigator url="/pages/list/new_list">

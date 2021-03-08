@@ -1,0 +1,24 @@
+/* pages/list/include_list.wxss */
+@import "/pages/components/cell.wxss";
+.container {
+  min-height: 100vh;
+}
+.desc-text {
+  padding-left: 10px;
+  line-height: 32px;
+  font-size: 13px;
+  color: var(--grey-color);
+}
+.cell-group {
+  margin-bottom: 20px;
+}
+.cell .option {
+  margin-left: 10px;
+  width: 24px;
+  height: 24px;
+}
+.cell .icon.move {
+  margin-right: 5px;
+  width: 24px;
+  height: 24px;
+}

@@ -1,0 +1,12 @@
+@import "../components/cell.wxss";
+/* 页面正文 */
+.container {
+  box-sizing: border-box;
+  min-height: 100vh;
+}
+/* 顶部搜索栏&编辑按钮 */
+.header {
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}

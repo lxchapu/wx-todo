@@ -1,0 +1,31 @@
+<view class="container safe-padding">
+  <block wx:if="{{include.length>0}}">
+    <text class="desc-text">包含</text>
+    <view class="cell-group">
+      <view wx:for="{{include}}" wx:key="index" class="cell">
+        <image class="option" src="/images/delete.png" data-index="{{index}}" catchtap="handleExcludeTap"></image>
+        <view class="content">
+          <view class="left">
+            <text>{{item.name}}</text>
+          </view>
+          <view class="right">
+            <image class="icon move" src="/images/move.png"></image>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+  <block wx:if="{{more.length>0}}">
+    <text class="desc-text">更多列表</text>
+    <view class="cell-group">
+      <view wx:for="{{more}}" wx:key="index" class="cell">
+        <image class="option" src="/images/include.png" data-index="{{index}}" catchtap="handleIncludeTap"></image>
+        <view class="content">
+          <view class="left">
+            <text>{{item.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>

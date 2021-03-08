@@ -49,21 +49,35 @@ Page({
       }
     ],
     // 列表
-    lists: []
+    lists: [],
+    // 展开的群组
+    unfoldGroupIndex: -1,
   },
   // 生命周期 页面显示
   onShow() {
     // 读取列表
-    wx.getStorage({
-      key: "lists"
-    }).then(res => {
-      var lists = res.data;
-      this.setData({
-        lists: lists
-      })
-    }).catch(err => {
-      console.log(err)
+    var lists = wx.getStorageSync("lists");
+    lists.forEach((item, index) => {
+      if (item.group) {
+        const groupIndex = lists.findIndex(g => {
+          return g.role == "group"&&g.name == item.group;
+        })
+        if (groupIndex == -1) {
+          var newGroup = {
+            name: item.group,
+            role: "group",
+            children: [item]
+          }
+          lists.push(newGroup);
+        } else {
+          lists[groupIndex].children.push(item);
+        }
+        lists.splice(index, 1);
+      }
     });
+    this.setData({
+      lists: lists
+    })
   },
   handleSearchFocus() {
     this.setData({
@@ -114,23 +128,6 @@ Page({
       statistics: this.data.statistics
     })
   },
-  // 点击删除列表
-  handleDeleteGroupTap(event) {
-    const index = event.target.dataset.index;
-    wx.showModal({
-      title: "提示",
-      content: "是否删除该列表",
-      confirmColor: "#3478f6",
-      success: res => {
-        if (res.confirm) {
-          this.data.lists.splice(index, 1);
-          this.setData({
-            lists: this.data.lists
-          })
-        }
-      }
-    });
-  },
   handleNavigatorTap(event) {
     const index = event.currentTarget.dataset.index;
     const url = util.buildURL("/pages/todo/detail", {
@@ -139,5 +136,51 @@ Page({
     wx.navigateTo({
       url: url,
     })
-  }
+  },
+  // 点击群组
+  handleGroupTap(event) {
+    const index = event.currentTarget.dataset.index;
+    if (this.data.unfoldGroupIndex == index) {
+      this.setData({
+        unfoldGroupIndex: -1
+      })
+    } else {
+      this.setData({
+        unfoldGroupIndex: index
+      })
+    }
+  },
+  // 点击删除群组
+  handleDeleteGroupTap(event) {
+    const index = event.target.dataset.index;
+    wx.showActionSheet({
+      alertText: "选择是否保留或删除此群组的列表及其所含提醒事项。",
+      itemList: ["仅删除群组","删除群组和列表"],
+      itemColor: "#3478f6",
+      success: res => {
+        console.log(res.tapIndex,index);
+      }
+    })
+  },
+  // 点击删除列表
+  handleDeleteListTap(event) {
+    const index = event.target.dataset.index;
+    wx.showActionSheet({
+      alertText: "是否删除此列表及其所含提醒事项？",
+      itemList: ["确定"],
+      itemColor: "#3478f6",
+      success: res => {
+        if (res.tapIndex==0) {
+          if (this.data.lists[index].role == "group") {
+            this.data.lists[index].children.splice(event.target.dataset.groupIndex, 1);
+          } else {
+            this.data.lists.splice(index, 1);
+          }
+          this.setData({
+            lists: this.data.lists
+          })
+        }
+      }
+    })
+  },
 })

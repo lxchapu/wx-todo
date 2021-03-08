@@ -1,0 +1,23 @@
+<view class="container safe-padding">
+  <view class="header">
+    <text class="text-button {{name?'':'disabled'}}" catchtap="handleCreateTap">创建</text>
+  </view>
+  <view class="cell-group">
+    <view class="cell">
+      <view class="content">
+        <textarea class="input" bindinput="handleNameInput" fixed auto-height placeholder="未命名"></textarea>
+      </view>
+    </view>
+    <view class="cell" catchtap="handleContainTap">
+      <view class="content">
+        <view class="left">
+          <text>包含</text>
+        </view>
+        <view class="right">
+          <text>{{include.length>0?include.length+'个列表':''}}</text>
+          <image class="icon more" src="/images/more.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

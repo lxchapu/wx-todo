@@ -4,7 +4,9 @@
     "pages/home/index",
     "pages/todo/new_todo",
     "pages/todo/about_info",
-    "pages/list/new_list"
+    "pages/list/new_list",
+    "pages/list/new_group",
+    "pages/list/include_list"
   ],
   "window": {
     "backgroundColor": "#f2f2f7",
