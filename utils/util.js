@@ -21,6 +21,12 @@ const buildURL = (base, query) => {
   return base + "?" + queryUrl;
 }
 
+// 更新统计数据
+const updateStatistics = () => {
+  var todoItems = wx.getStorageSync("todoItems");
+  var lists = wx.getStorageSync("lists");
+}
+
 module.exports = {
   buildURL
 }

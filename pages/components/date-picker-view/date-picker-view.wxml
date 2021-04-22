@@ -1,8 +1,9 @@
-<!-- 嵌入的日期选择器 -->
-<view class="date-picker-view">
+<!-- 嵌入的年月日期选择器 -->
+<view hidden="{{hidden}}" class="date-picker-view">
   <!-- 顶部信息栏 -->
   <view class="top-bar">
-    <view class="selected-date {{showYearMonthPicker?'active':''}}" catchtap="handleShowYearMonthPickerTap">
+    <!-- 显示的年月 -->
+    <view class="date-text {{showYearMonthPicker?'active':''}}" catchtap="handleShowYearMonthPickerTap">
       <text><text class="number">{{show.year}}</text> 年 <text class="number">{{show.month}}</text> 月 </text>
       <image class="icon" src="/images/right_small.png"></image>
     </view>
@@ -12,11 +13,11 @@
     </view>
   </view>
   <!-- 日期选择器 -->
-  <view style="{{showYearMonthPicker?'display:none;':''}}" class="date-picker">
-    <view class="week-label" wx:for="{{weekLabels}}" wx:key="index">周{{item}}</view>
+  <view hidden="{{showYearMonthPicker}}" class="date-picker">
+    <view class="week-label" wx:for="{{weekLabels}}" wx:key="index">{{item}}</view>
     <block wx:for="{{dateList}}" wx:key="index">
       <block wx:if="{{item}}">
-        <view class="date-label {{item==selected.day && show.month==selected.month && show.year==selected.year?'selected':''}} {{item==current.day && show.month==current.month && show.year==current.year?'current':''}}" data-index="{{index}}" catchtap="handleDateTap">
+        <view class="date-label {{item==value.day && show.month==value.month && show.year==value.year?'selected':''}} {{item==current.day && show.month==current.month && show.year==current.year?'current':''}}" data-index="{{index}}" catchtap="handleDateTap">
           <view class="position"><text>{{item}}</text></view>
         </view>
       </block>
@@ -26,7 +27,7 @@
     </block>
   </view>
   <!-- 年月选择器 -->
-  <picker-view style="{{showYearMonthPicker?'':'display:none;'}}" class="year-month-picker" value="{{yearMonthPickerValue}}" bindchange="handleYearMonthPickerChange">
+  <picker-view hidden="{{!showYearMonthPicker}}" class="year-month-picker" value="{{yearMonthPickerValue}}" bindchange="handleYearMonthPickerChange">
     <picker-view-column>
       <view class="year-label" wx:for="{{yearList}}" wx:key="index">{{item}} 年</view>
     </picker-view-column>

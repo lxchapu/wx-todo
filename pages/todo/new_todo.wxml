@@ -5,17 +5,17 @@
   <view class="cell-group">
     <view class="cell">
       <view class="content">
-        <textarea class="input" model:value="{{title}}" fixed auto-height placeholder="标题"></textarea>
+        <textarea class="input" bindinput="handleTitleInput" fixed auto-height placeholder="标题"></textarea>
       </view>
     </view>
     <view class="cell">
       <view class="content">
-        <textarea class="input" model:value="{{remark}}" fixed auto-height placeholder="备注"></textarea>
+        <textarea class="input" bindinput="handleRemarkInput" fixed auto-height placeholder="备注"></textarea>
       </view>
     </view>
   </view>
   <view class="cell-group">
-    <view class="cell" catchtap="handleSetMoreTap">
+    <view class="cell" catchtap="handleDetailTap">
       <view class="content">
         <view class="left">
           <text>详细信息</text>
@@ -27,13 +27,13 @@
     </view>
   </view>
   <view class="cell-group">
-    <view class="cell">
+    <view class="cell" catchtap="handleBelongListTap">
       <view class="content">
         <view class="left">
           <text>列表</text>
         </view>
         <view class="right">
-          <view class="dot"></view>
+          <view class="dot" style="background-color: var(--{{belongList.color}}-color);"></view>
           <text>{{belongList.name}}</text>
           <image class="icon more" src="/images/more.png"></image>
         </view>

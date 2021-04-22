@@ -1,0 +1,19 @@
+<view class="container">
+  <view class="cell-group">
+    <view class="cell" wx:for="{{lists}}" wx:key="index" data-index="{{index}}" catchtap="handleListTap">
+      <!-- 图标 -->
+      <view class="left-icon" style="background-color: var(--{{item.color}}-color);">
+        <view class="iconfont svg-{{item.icon}}"></view>
+      </view>
+      <!-- 描述 -->
+      <view class="content">
+        <view class="left">
+          <text>{{item.name}}</text>
+        </view>
+        <view class="right">
+          <image wx:if="{{item.name==belongList.name}}" class="icon tick" src="/images/tick.png"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

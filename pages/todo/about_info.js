@@ -21,6 +21,15 @@ Page({
     // 选择的日期
     date: null
   },
+  onShow() {
+    this.setData({
+      date: {
+        year: new Date().getFullYear(),
+        month: new Date().getMonth()+1,
+        day: new Date().getDate()
+      }
+    }) 
+  },
   handleSetDateSwitchChange(event) {
     this.setData({
       showDatePicker: event.detail.value
@@ -31,6 +40,23 @@ Page({
       this.setData({
         showDatePicker: !this.data.showDatePicker
       })
+    }
+  },
+  handleDatePickerChange(event) {
+    this.setData({
+      date: event.detail,
+      dateText: this.getDateText(event.detail)
+    })
+  },
+  getDateText(date) {
+    const textList = ["前天","昨天","今天","明天","后天"];
+    var current = new Date(new Date().getFullYear(),new Date().getMonth(),new Date().getDate());
+    var selected = new Date(date.year, date.month-1, date.day);
+    var day = parseInt((selected - current) / 1000 / 60 / 60 / 24);
+    if (day >=-2 && day <= 2) {
+      return textList[day+2];
+    } else {
+      return `${date.year}年 ${date.month}月 ${date.day}日`
     }
   }
 })

@@ -1,37 +1,38 @@
 // 自定义日期选择器组件
 Component({
-  /**
-   * 组件的属性列表
-   */
-  properties: {
+  options: {
+    addGlobalClass: true
   },
-  /**
-   * 组件的初始数据
-   */
+  /* 组件的属性列表 */
+  properties: {
+    // 选中的日期
+    value: {
+      type: Object,
+      value: {}
+    },
+    // 隐藏
+    hidden: {
+      type: Boolean,
+      value: false
+    }
+  },
+  /* 组件的初始数据 */
   data: {
     // 今天的日期
-    current: {
-      year: 2021,
-      month: 1,
-      day: 1
-    },
-    // 选中的日期
-    selected: {
-      year: 2021,
-      month: 1,
-      day: 1
-    },
-    // 显示的日期
-    show: {
-      year: 2021,
-      month: 1
-    },
-    weekLabels: ["日","一","二","三","四","五","六"],
+    current: {},
+    // 日期选择器显示的日期
+    show: {},
+    // 某月日期列表
     dateList: [],
-    yearList: [],
+    // 月份列表
     monthList: [1,2,3,4,5,6,7,8,9,10,11,12],
+    // 年份列表
+    yearList: [],
+    // 星期标签
+    weekLabels: ["周日","周一","周二","周三","周四","周五","周六"],
     // 是否显示年月选择器
     showYearMonthPicker: false,
+    // 年月选择器选中值
     yearMonthPickerValue: []
   },
   /* 组件实例进入页面节点树 */
@@ -50,13 +51,15 @@ Component({
         month: month,
         day: day
       },
+      show: {
+        year: year,
+        month: month
+      },
       yearList: yearList
     });
     this.buildDateList(year, month);
   },
-  /**
-   * 组件的方法列表
-   */
+  /* 组件的方法列表 */
   methods: {
     // 生成日历
     buildDateList(year, month) {
@@ -77,13 +80,11 @@ Component({
     // 选中日期
     handleDateTap(event) {
       const index = event.currentTarget.dataset.index;
-      this.setData({
-        selected: {
-          year: this.data.show.year,
-          month: this.data.show.month,
-          day: this.data.dateList[index]
-        }
-      })
+      this.triggerEvent("change", {
+        year: this.data.show.year,
+        month: this.data.show.month,
+        day: this.data.dateList[index]
+      });
     },
     // 点击上个月
     handlePreMonthTap() {

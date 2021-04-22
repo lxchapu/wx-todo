@@ -12,7 +12,7 @@
         </view>
       </view>
     </view>
-    <date-picker-view style="{{setDate&&showDatePicker?'':'display: none;'}}"></date-picker-view>
+    <date-picker-view hidden="{{!setDate||!showDatePicker}}" value="{{date}}" bindchange="handleDatePickerChange"></date-picker-view>
     <view class="cell">
       <image class="left-icon" src="/images/timer_cube.png"></image>
       <view class="content">
