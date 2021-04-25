@@ -1,3 +1,4 @@
+const db = require("../../utils/db");
 /* 添加群组 */
 Page({
   /**
@@ -6,48 +7,27 @@ Page({
   data: {
     // 群组名称
     name: "",
-    // 群组
-    groups: [],
     // 更多列表
     more: [],
     // 包含列表
     include: []
   },
   // 生命周期 页面加载
-  onLoad(options) {
-    var lists = wx.getStorageSync("lists") || [];
-    var groups = wx.getStorageSync("groups") || [];
+  onLoad() {
+    var lists = db.List.queryAll();
     this.setData({
-      groups: groups,
       more: lists
     })
   },
   // 点击创建 
   handleCreateTap() {
-    var nGroup = {
-      id: Date.now().toString(36),
+    var group = {
+      id: Date.now(),
       name: this.data.name
     }
-    this.data.groups.push(nGroup)
-    this.data.include.forEach(item => {
-      item.group = nGroup.id;
-    })
-    wx.setStorage({
-      key: "groups",
-      data: this.data.groups
-    })
-    .then(res => {
-      return wx.setStorage({
-        key: "lists",
-        data: this.data.more.concat(this.data.include)
-      })
-    })
-    .then(res => {
-      return wx.navigateBack()
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    db.Group.insertOne(group);
+    db.List.updateGroup(this.data.include, group.id);
+    wx.navigateBack();
   },
   // 输入名称 
   handleNameInput(event) {

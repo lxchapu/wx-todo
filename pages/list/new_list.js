@@ -1,8 +1,6 @@
+const db = require("../../utils/db");
 /* 新建列表 */
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
     // 主题色列表
     colorList: ["red","orange","yellow","green","light-blue","blue","dark-blue","peach","purple","brown","slate-grey","rosy-brown"],
@@ -15,23 +13,7 @@ Page({
     // 选择的颜色
     selectedColor: "blue",
     // 选择的图标
-    selectedIcon: "list",
-    // 列表
-    lists: []
-  },
-  // 生命周期 页面加载
-  onLoad(options) {
-    wx.getStorage({
-      key: "lists",
-    })
-    .then(res => {
-      this.setData({
-        lists: res.data
-      })
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    selectedIcon: "list"
   },
   // 点击颜色
   handleColorTap(event) {
@@ -67,22 +49,13 @@ Page({
   },
   // 点击完成
   handleConfirmTap() {
-    this.data.lists.push({
-      id: Date.now().toString(36),
+    db.List.insertOne({
+      id: Date.now(),
       name: this.data.name,
       color: this.data.selectedColor,
       icon: this.data.selectedIcon,
-      group: null
+      group_id: null
     })
-    wx.setStorage({
-      key: "lists",
-      data: this.data.lists
-    })
-    .then(res => {
-      return wx.navigateBack()
-    })
-    .catch(err => {
-      console.log(err)
-    })
+    wx.navigateBack()
   }
 })

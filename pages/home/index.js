@@ -1,4 +1,5 @@
 const util = require("../../utils/util.js");
+const db = require("../../utils/db");
 /* 首页 */
 Page({
   /**
@@ -54,31 +55,14 @@ Page({
   },
   // 生命周期 页面显示
   onShow() {
-    // 读取列表
-    var lists = wx.getStorageSync("lists") || [];
-    var groups = wx.getStorageSync("groups") || [];
-    var listAndGroup = [];
-    groups.forEach(item => {
-      listAndGroup.push({
-        id: item.id,
-        name: item.name,
-        role: "group",
-        children: []
-      })
-    })
-    lists.forEach((item, index) => {
-      if (item.group) {
-        const groupIndex = util.findIndexFromList(item.group, listAndGroup);
-        if (groupIndex !== -1) {
-          listAndGroup[groupIndex].children.push(item);
-        }
-      } else {
-        listAndGroup.push(item);
-      }
-    });
+    var listAndGroup = db.Group.queryAllDetail();
     this.setData({
       listAndGroup: listAndGroup
     })
+    this.queryStatistic();
+  },
+  /* 查询统计 */
+  queryStatistic() {
   },
   handleSearchFocus() {
     this.setData({
