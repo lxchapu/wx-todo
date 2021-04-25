@@ -1,4 +1,4 @@
-@import "../components/cell.wxss";
+@import "/components/cell.wxss";
 
 .container {
   min-height: 100vh;

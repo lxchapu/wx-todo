@@ -1,5 +1,5 @@
 {
-  "entryPagePath": "pages/todo/new_todo",
+  "entryPagePath": "pages/home/index",
   "pages": [
     "pages/home/index",
     "pages/todo/new_todo",
@@ -8,7 +8,9 @@
     "pages/group/new_group",
     "pages/group/include_list",
     "pages/todo/belong_list",
-    "pages/todo/location"
+    "pages/todo/location",
+    "pages/todo/set_level",
+    "pages/test/index"
   ],
   "window": {
     "backgroundColor": "#f2f2f7",

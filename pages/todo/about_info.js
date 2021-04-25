@@ -14,12 +14,13 @@ Page({
     setLocation: false,
     // 设置信息
     setMessage: false,
-    // 设置旗标
-    setFlag: false,
     // 提醒事项详细信息
     dateText: null,
     // 字段
     date: null,
+    // 设置旗标
+    isFlag: false,
+    level: 0
   },
   onLoad() {
     this.getOpenerEventChannel().once("setDetail", res => {
@@ -62,5 +63,21 @@ Page({
     } else {
       return `${date.year}年 ${date.month}月 ${date.day}日`
     }
+  },
+  /* 点击优先级 */
+  handleLevelTap() {
+    wx.navigateTo({
+      url: "./set_level",
+      events: {
+        setLevel: res => {
+          this.setData(res)
+        }
+      },
+      success: res => {
+        res.eventChannel.emit("setLevel", {
+          level: this.data.level
+        })
+      }
+    })
   }
 })

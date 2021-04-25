@@ -1,0 +1,12 @@
+<view class="container">
+  <view class="group">
+    <view class="content" wx:for="{{levelList}}" wx:key="index">
+      <view class="left">
+        <text>{{item}}</text>
+      </view>
+      <view class="right">
+        <image wx:if="{{level==index}}" class="icon tick" src="/images/tick.png"></image>
+      </view>
+    </view>
+  </view>
+</view>

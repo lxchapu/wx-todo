@@ -74,13 +74,13 @@
           <text>旗标</text>
         </view>
         <view class="right">
-          <switch model:checked="{{setFlag}}"></switch>
+          <switch model:checked="{{isFlag}}"></switch>
         </view>
       </view>
     </view>
   </view>
   <view class="cell-group">
-    <view class="cell">
+    <view class="cell" catchtap="handleLevelTap">
       <view class="content">
         <view class="left">
           <text>优先级</text>

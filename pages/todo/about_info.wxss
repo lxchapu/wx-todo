@@ -1,4 +1,4 @@
-@import "../components/cell.wxss";
+@import "/components/cell.wxss";
 /* 正文 */
 .container {
   box-sizing: border-box;

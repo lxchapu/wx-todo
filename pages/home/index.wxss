@@ -1,4 +1,4 @@
-@import "../components/cell.wxss";
+@import "/components/cell.wxss";
 /* 顶部搜索栏&编辑按钮 */
 .header {
   z-index: 10;

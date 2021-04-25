@@ -1,5 +1,5 @@
 /* pages/list/include_list.wxss */
-@import "/pages/components/cell.wxss";
+@import "/components/cell.wxss";
 .container {
   min-height: 100vh;
 }
