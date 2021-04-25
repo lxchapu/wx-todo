@@ -1,4 +1,4 @@
-/* storage name */
+/* storage key name */
 const DB_TODO = "todos";
 const DB_LIST = "lists";
 const DB_GROUP = "groups";
@@ -21,16 +21,22 @@ Todo.queryById = function(id) {
     return todos[index];
   }
 }
+/* 根据过滤函数查询提醒事项
+filter: 过滤函数 */
+Todo.queryByFilter = function(filter) {
+  var todos = Todo.queryAll();
+  todos = todos.filter(filter);
+  return todos;
+}
 /* 根据 list_id 获取提醒事项 */
 Todo.queryByListId = function(list_id) {
-  var todos = Todo.queryAllTodo();
-  return todos.filter(item => {
+  return Todo.queryByFilter(item => {
     return item.list_id === list_id;
-  })
+  });
 }
 /* 根据 id 删除提醒事项 */
 Todo.deleteById = function(id) {
-  var todos = Todo.queryAllTodo();
+  var todos = Todo.queryAll();
   const index = todos.findIndex(item => {
     return item.id === id;
   })
@@ -41,7 +47,7 @@ Todo.deleteById = function(id) {
 }
 /* 添加提醒事项 */
 Todo.insertOne = function(todo) {
-  var todos = Todo.queryAllTodo();
+  var todos = Todo.queryAll();
   todos.push(todo);
   wx.setStorageSync(DB_TODO, todos)
 }
@@ -108,6 +114,24 @@ List.updateGroup = function(up_lists, group_id) {
   })
   wx.setStorageSync(DB_LIST, lists);
 }
+/* 查询全部列表详情 */
+List.queryAllDetail = function() {
+  var lists = List.queryAll();
+  var todos = Todo.queryAll();
+  lists.forEach(item => {
+    item.number = 0;
+  })
+  todos.forEach(item => {
+    var index = lists.findIndex(l => {
+      return l.id === item.list_id;
+    })
+    if (index !== -1) {
+      lists[index].number += 1;
+    }
+  })
+  return lists;
+}
+
 /* 群组 */
 var Group = {};
 /* 获取全部群组 */
@@ -121,7 +145,31 @@ Group.insertOne = function(group) {
   groups.push(group);
   wx.setStorageSync(DB_GROUP, groups)
 }
-
+/* 查询全部群组详情
+混合群组和列表 并返回 */
+Group.queryAllDetail = function() {
+  var detail = Group.queryAll();
+  var lists = List.queryAllDetail();
+  detail.forEach(item => {
+    item.number = 0;
+    item.role = "group";
+    item.children = [];
+  })
+  lists.forEach(item => {
+    if (item.group_id) {
+      var index = detail.findIndex(g => {
+        return g.role && g.role === "group" && g.id === item.group_id;
+      })
+      if (index !== -1) {
+        detail[index].number += item.number;
+        detail[index].children.push(item);
+      }
+    } else {
+      detail.push(item)
+    }
+  })
+  return detail;
+}
 module.exports = {
   Todo,
   List,

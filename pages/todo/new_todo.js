@@ -69,11 +69,11 @@ Page({
       isSendMessage: this.data.detail.isSendMessage,
       isFlag: this.data.detail.isFlag,
       level: this.data.detail.level,
-      belongList: this.data.belongList.id
+      list_id: this.data.belongList.id
     }
     var list = [];
     wx.getStorage({
-      key: "todoItems",
+      key: "todos",
       success: res=> {
         list = res.data;
         list.push(todoItem)
@@ -83,7 +83,7 @@ Page({
       },
       complete: () => {
         wx.setStorage({
-          key: "todoItems",
+          key: "todos",
           data: list
         }).then(() => {
           wx.navigateBack({
