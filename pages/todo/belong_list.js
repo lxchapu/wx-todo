@@ -13,7 +13,7 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      lists: wx.getStorageSync("lists")
+      lists: wx.getStorageSync("lists") || []
     })
     this.getOpenerEventChannel().once("setBelongList", res => {
       this.setData(res)

@@ -1,4 +1,4 @@
-// pages/todo/about_info.js
+/* 编辑todo详情 */
 Page({
   /**
    * 页面的初始数据
@@ -17,18 +17,22 @@ Page({
     // 设置旗标
     setFlag: false,
     // 提醒事项详细信息
-    dateText: "今天",
-    // 选择的日期
-    date: null
+    dateText: null,
+    // 字段
+    date: null,
   },
-  onShow() {
+  onLoad() {
+    this.getOpenerEventChannel().once("setDetail", res => {
+      this.setData(res)
+    })
     this.setData({
       date: {
         year: new Date().getFullYear(),
         month: new Date().getMonth()+1,
         day: new Date().getDate()
-      }
-    }) 
+      },
+      dateText: "今天"
+    })
   },
   handleSetDateSwitchChange(event) {
     this.setData({

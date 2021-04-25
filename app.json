@@ -1,13 +1,14 @@
 {
-  "entryPagePath": "pages/home/index",
+  "entryPagePath": "pages/todo/new_todo",
   "pages": [
     "pages/home/index",
     "pages/todo/new_todo",
     "pages/todo/about_info",
     "pages/list/new_list",
-    "pages/list/new_group",
-    "pages/list/include_list",
-    "pages/todo/belong_list"
+    "pages/group/new_group",
+    "pages/group/include_list",
+    "pages/todo/belong_list",
+    "pages/todo/location"
   ],
   "window": {
     "backgroundColor": "#f2f2f7",

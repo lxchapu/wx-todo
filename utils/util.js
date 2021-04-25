@@ -26,7 +26,15 @@ const updateStatistics = () => {
   var todoItems = wx.getStorageSync("todoItems");
   var lists = wx.getStorageSync("lists");
 }
+/* 根据 id 从列表获取下标 */
+const findIndexFromList = (id, list) => {
+  const index = list.findIndex(item => {
+    return item.id === id;
+  })
+  return index;
+}
 
 module.exports = {
-  buildURL
+  buildURL,
+  findIndexFromList
 }

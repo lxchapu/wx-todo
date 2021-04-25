@@ -1,3 +1,4 @@
+/* 添加群组 */
 Page({
   /**
    * 页面的初始数据
@@ -14,18 +15,8 @@ Page({
   },
   // 生命周期 页面加载
   onLoad(options) {
-    var lists = wx.getStorageSync("lists");
-    var groups = [];
-    lists.forEach(item => {
-      if (item.group) {
-        const index = groups.findIndex(g => {
-          return g == item.group
-        })
-        if (index == -1) {
-          groups.push(item.group);
-        }
-      }
-    });
+    var lists = wx.getStorageSync("lists") || [];
+    var groups = wx.getStorageSync("groups") || [];
     this.setData({
       groups: groups,
       more: lists
@@ -33,27 +24,30 @@ Page({
   },
   // 点击创建 
   handleCreateTap() {
-    const index = this.data.groups.findIndex(g => {
-      return g == this.data.name;
-    })
-    if (index == -1) {
-      this.data.include.forEach(item => {
-        item.group = this.data.name;
-      })
-      var lists = this.data.include.concat(this.data.more);
-      wx.setStorage({
-        key: "lists",
-        data: lists,
-        success: res => {
-          wx.navigateBack();
-        }
-      })
-    } else {
-      wx.showToast({
-        title: "群组名称已存在",
-        icon: "none"
-      })
+    var nGroup = {
+      id: Date.now().toString(36),
+      name: this.data.name
     }
+    this.data.groups.push(nGroup)
+    this.data.include.forEach(item => {
+      item.group = nGroup.id;
+    })
+    wx.setStorage({
+      key: "groups",
+      data: this.data.groups
+    })
+    .then(res => {
+      return wx.setStorage({
+        key: "lists",
+        data: this.data.more.concat(this.data.include)
+      })
+    })
+    .then(res => {
+      return wx.navigateBack()
+    })
+    .catch(err => {
+      console.log(err)
+    })
   },
   // 输入名称 
   handleNameInput(event) {

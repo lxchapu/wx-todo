@@ -11,7 +11,7 @@
           <text>{{item.name}}</text>
         </view>
         <view class="right">
-          <image wx:if="{{item.name==belongList.name}}" class="icon tick" src="/images/tick.png"></image>
+          <image wx:if="{{item.id==belongList.id}}" class="icon tick" src="/images/tick.png"></image>
         </view>
       </view>
     </view>

@@ -15,6 +15,7 @@ page {
   --brown-color: #998667;
   --slate-grey-color: #5d666f;
   --rosy-brown-color: #d1a8a0;
+  /* icon-color end */
   --grey-color: #8a8a8d;
   --page-background-color: #f2f2f7;
   --input-background-color: #e3e3e8;

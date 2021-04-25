@@ -42,7 +42,7 @@
   "compileType": "miniprogram",
   "libVersion": "2.15.0",
   "appid": "wx9185be661eefe33a",
-  "projectname": "puyo",
+  "projectname": "todo",
   "debugOptions": {
     "hidedInDevtools": []
   },

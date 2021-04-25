@@ -56,7 +56,7 @@
   <!-- 提醒事项列表 -->
   <text class="h1">我的列表</text>
   <view class="cell-group lists">
-    <block wx:for="{{lists}}" wx:key="index">
+    <block wx:for="{{listAndGroup}}" wx:key="index">
       <!-- 群组 -->
       <block wx:if="{{item.role=='group'}}">
         <view class="cell" data-index="{{index}}" catchtap="handleGroupTap">
@@ -121,14 +121,14 @@
   </view>
 </view>
 <!-- 底部按钮 -->
-<view class="footer safe-padding {{lists.length?'border':''}}">
-  <navigator wx:if="{{editstatus}}" url="/pages/list/new_group">
+<view class="footer safe-padding {{listAndGroup.length?'border':''}}">
+  <navigator wx:if="{{editstatus}}" url="/pages/group/new_group">
     <text class="text-button">添加群组</text>
   </navigator>
   <view wx:else class="left">
-    <image class="icon" src="/images/{{lists.length?'add':'add_disabled'}}.png"></image>
+    <image class="icon" src="/images/{{listAndGroup.length?'add':'add_disabled'}}.png"></image>
     <navigator url="/pages/todo/new_todo">
-      <text class="text-button {{lists.length?'':'disabled'}}">新提醒事项</text>
+      <text class="text-button {{listAndGroup.length?'':'disabled'}}">新提醒事项</text>
     </navigator>
   </view>
   <navigator url="/pages/list/new_list">

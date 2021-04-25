@@ -1,3 +1,4 @@
+/* 新建列表 */
 Page({
   /**
    * 页面的初始数据
@@ -22,11 +23,14 @@ Page({
   onLoad(options) {
     wx.getStorage({
       key: "lists",
-      success: res => {
-        this.setData({
-          lists: res.data
-        })
-      }
+    })
+    .then(res => {
+      this.setData({
+        lists: res.data
+      })
+    })
+    .catch(err => {
+      console.log(err)
     })
   },
   // 点击颜色
@@ -63,27 +67,22 @@ Page({
   },
   // 点击完成
   handleConfirmTap() {
-    const index = this.data.lists.findIndex(item => {
-      return item.name == this.data.name;
+    this.data.lists.push({
+      id: Date.now().toString(36),
+      name: this.data.name,
+      color: this.data.selectedColor,
+      icon: this.data.selectedIcon,
+      group: null
     })
-    if (index == -1) {
-      this.data.lists.push({
-        name: this.data.name,
-        color: this.data.selectedColor,
-        icon: this.data.selectedIcon
-      })
-      wx.setStorage({
-        key: "lists",
-        data: this.data.lists,
-        success: res => {
-          wx.navigateBack()
-        }
-      })
-    } else {
-      wx.showToast({
-        title: "列表名称已存在",
-        icon: "none"
-      })
-    }
+    wx.setStorage({
+      key: "lists",
+      data: this.data.lists
+    })
+    .then(res => {
+      return wx.navigateBack()
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 })

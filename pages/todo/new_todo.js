@@ -1,18 +1,18 @@
-// pages/todo/new.js
+/* 新建提醒事项 */
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     id: "",
-    title: "",
-    remark: "",
+    title: null,
+    remark: null,
     detail: {
-      url: "",
-      date: {},
-      time: {},
-      repeat: {}, 
-      location: {},
+      url: null,
+      date: null,
+      time: null,
+      repeat: null, 
+      location: null,
       isSendMessage: false,
       isFlag: false,
       level: 0
@@ -21,7 +21,7 @@ Page({
   },
   // 生命周期 页面加载
   onLoad() {
-    var lists = wx.getStorageSync("lists");
+    var lists = wx.getStorageSync("lists") || [];
     this.setData({
       belongList: lists[0]
     });
@@ -30,6 +30,14 @@ Page({
   handleDetailTap() {
     wx.navigateTo({
       url: "./about_info",
+      event: {
+        setDetail: res => {
+          this.setData(res)
+        }
+      },
+      success: res => {
+        res.eventChannel.emit("setDetail", this.data.detail)
+      }
     })
   },
   // 点击列表
@@ -61,7 +69,7 @@ Page({
       isSendMessage: this.data.detail.isSendMessage,
       isFlag: this.data.detail.isFlag,
       level: this.data.detail.level,
-      belongList: this.data.belongList.name
+      belongList: this.data.belongList.id
     }
     var list = [];
     wx.getStorage({

@@ -1,6 +1,5 @@
-// pages/home/index.js
 const util = require("../../utils/util.js");
-
+/* 首页 */
 Page({
   /**
    * 页面的初始数据
@@ -48,35 +47,37 @@ Page({
         show: false
       }
     ],
-    // 列表
-    lists: [],
+    // 群组和列表
+    listAndGroup: [],
     // 展开的群组
     unfoldGroupIndex: -1,
   },
   // 生命周期 页面显示
   onShow() {
     // 读取列表
-    var lists = wx.getStorageSync("lists");
+    var lists = wx.getStorageSync("lists") || [];
+    var groups = wx.getStorageSync("groups") || [];
+    var listAndGroup = [];
+    groups.forEach(item => {
+      listAndGroup.push({
+        id: item.id,
+        name: item.name,
+        role: "group",
+        children: []
+      })
+    })
     lists.forEach((item, index) => {
       if (item.group) {
-        const groupIndex = lists.findIndex(g => {
-          return g.role == "group"&&g.name == item.group;
-        })
-        if (groupIndex == -1) {
-          var newGroup = {
-            name: item.group,
-            role: "group",
-            children: [item]
-          }
-          lists.push(newGroup);
-        } else {
-          lists[groupIndex].children.push(item);
+        const groupIndex = util.findIndexFromList(item.group, listAndGroup);
+        if (groupIndex !== -1) {
+          listAndGroup[groupIndex].children.push(item);
         }
-        lists.splice(index, 1);
+      } else {
+        listAndGroup.push(item);
       }
     });
     this.setData({
-      lists: lists
+      listAndGroup: listAndGroup
     })
   },
   handleSearchFocus() {
@@ -171,13 +172,13 @@ Page({
       itemColor: "#3478f6",
       success: res => {
         if (res.tapIndex==0) {
-          if (this.data.lists[index].role == "group") {
-            this.data.lists[index].children.splice(event.target.dataset.groupIndex, 1);
+          if (this.data.listAndGroup[index].role == "group") {
+            this.data.listAndGroup[index].children.splice(event.target.dataset.groupIndex, 1);
           } else {
-            this.data.lists.splice(index, 1);
+            this.data.listAndGroup.splice(index, 1);
           }
           this.setData({
-            lists: this.data.lists
+            listAndGroup: this.data.listAndGroup
           })
         }
       }
